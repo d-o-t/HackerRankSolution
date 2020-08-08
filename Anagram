@@ -1,0 +1,76 @@
+//https://www.hackerrank.com/challenges/anagram/problem
+
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the anagram function below.
+    static int anagram(String s) {
+
+        int ctr = 0;
+        int[] alpha = new int[26];
+        int lenStr =s.length(); 
+
+        if(lenStr%2 != 0)
+            return -1;
+        else
+        {
+            int mid = lenStr/2;
+            String p1 = s.substring(0,mid);
+            String p2 = s.substring(mid,lenStr);
+            
+            
+
+            for (int i=0;i<p1.length();i++)
+            {
+                char ch = p1.charAt(i);
+                int k = (int) ch -97;
+                alpha[k]+=1;
+            }
+            for (int i=0;i<p2.length();i++)
+            {
+                char ch = p2.charAt(i);
+                int k = (int) ch -97 ;
+                alpha[k]-=1;
+            }
+
+            for (int i=0;i<26;i++)
+            {
+                if(alpha[i] != 0 && alpha[i]>0)
+                    ctr = ctr+alpha[i];
+            }
+
+            return ctr;
+        }
+
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int q = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int qItr = 0; qItr < q; qItr++) {
+            String s = scanner.nextLine();
+
+            int result = anagram(s);
+
+            bufferedWriter.write(String.valueOf(result));
+            bufferedWriter.newLine();
+        }
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
